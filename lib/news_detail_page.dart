@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsDetailPage extends StatelessWidget {
@@ -39,7 +40,7 @@ class NewsDetailPage extends StatelessWidget {
               width: size.width,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title.toString(),
                     style: TextStyle(
@@ -49,23 +50,26 @@ class NewsDetailPage extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(pubDate,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20,
-                    ),),
+                  Text(
+                    DateFormat('EEEE, dd MMMM yyyy')
+                        .format(DateTime.parse(pubDate)),
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    width: size.width * 0.4,
-                    height: size.height * 0.2,
-                    child: Image.network(
-                      thumbnail.toString(),
-                      width: 60,
-                      height: 130,
-                      fit: BoxFit.fill,
+                  Center(
+                    child: SizedBox(
+                      width: size.width * 100,
+                      height: size.height * 0.35,
+                      child: Image.network(
+                        thumbnail.toString(),
+                        width: 60,
+                        height: 130,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -101,11 +105,13 @@ class NewsDetailPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TextButton(onPressed: () async {
-                    await goToWebPage(link.toString());
-                  },
-                    child: Text("Baca Selengkapnya..."),
-                  )
+                  Center(
+                    child: TextButton(onPressed: () async {
+                      await goToWebPage(link.toString());
+                    },
+                      child: Text("Baca Selengkapnya..."),
+                    ),
+                  ),
                 ],
               ),
             )));
